@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+
+  <title>JavaScript - String Matching</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class="content">
+      
+      <article id="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <a href='/'>< Home</a>
+
+  <div>
+    <h1>JavaScript - String Matching</h1> 
+    
+      2017-04-22
+    
+    <p>Finding occurrences of a pattern in a text is a common problem that can be usually solved using <code>String.prototype.match()</code>. For example, given the DNA sequence <code>AGCATGCTGCAGTCATGCTTAGGCTA</code>, we can find <code>GCT</code> occurrences with the following code:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const dnaSequence = &apos;AGCATGCTGCAGTCATGCTTAGGCTA&apos;;</div><div class="line">const dnaPattern = /GCT/g;</div><div class="line">const occurrences = dnaSequence.match(dnaPattern);</div><div class="line"></div><div class="line">console.log(occurrences); // [&quot;GCT&quot;, &quot;GCT&quot;, &quot;GCT&quot;]</div></pre></td></tr></table></figure>
+<p>As there are various string matching algorithms, I was curious to discover what happens under the hood when we call the method. According to ECMA-262 7.0 docs, this is what happens when we call <code>.match()</code> with a <code>RegExp</code> as argument:</p>
+<ol>
+<li><code>O</code> ? <code>RequireObjectCoercible(this)</code>;</li>
+<li>If <code>regexp</code> is not <code>undefined</code> or <code>null</code>, then:<ol>
+<li><code>matcher</code> ? <code>GetMethod(regexp, @@match)</code>;</li>
+<li>If <code>matcher</code> is not <code>undefined</code>, then:<ol>
+<li>Return ? <code>Call(matcher, regexp, « O »)</code>;</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><code>S</code> ? <code>ToString(O)</code>;</li>
+<li><code>rx</code> ? <code>RegExpCreate(regexp, undefined)</code>;</li>
+<li>Return ? <code>Invoke(rx, @@match, « S »)</code>;</li>
+</ol>
+<p>You may notice that the function <code>match()</code> is intentionally generic, thus does not require <code>this</code> to be a strin g and yeah, I know it sounds an alphabet soup. So let’s take our first example and analyze is step-by-step:</p>
+<ol>
+<li><code>RequireObjectCoercible</code> will be called with the string’s value, which is in our case ‘AGCATGCTGCAGTCATGCTTAGGCTA’. This method returns an error if the value can not be converted to an object (<code>undefined</code> ou <code>null</code>);</li>
+<li>If <code>regexp</code> is not <code>undefined</code> or <code>null</code>, given that <code>dnaPattern = /GCT/g</code>, then:<ol>
+<li><code>GetMethod</code> will be called and access the value <code>@@match</code> of <code>regexp</code>, returning a function to be stored in <code>matcher</code>;</li>
+<li>If <code>matcher</code> is not <code>undefined</code>, then:<ol>
+<li><code>Call</code> will be called and then call the function <code>matcher</code> with <code>regexp</code>‘s value against <code>O</code> (our object), which will return an value, <code>[&quot;GCT&quot;, &quot;GCT&quot;, &quot;GCT&quot;]</code> in our case;</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>If our regular expression were undefined or null, the algorithm would have transformed the object <code>this</code> into a string, created a new regular expression and invocated it against the created string using <code>@@match</code>, which is a symbol that contains a method from a regular expression.</p>
+<h3 id="Final-notes"><a href="#Final-notes" class="headerlink" title="Final notes:"></a>Final notes:</h3><ul>
+<li>As the purpose of this post were to show a little about what happens behind JavaScript often-called magical methods, I used a certain level of abstraction when writing it. If there’s interest in learning more, maybe you should read the <a href="http://www.ecma-international.org/ecma-262/7.0/index.html" target="_blank" rel="external">documentation</a>;</li>
+<li>If you have interest in String Matching, Introduction to Algorithms by Thomas Cormen has a dedicated chapter (32) on this topic;</li>
+</ul>
+
+  </div>
+</article>
+    </div>
+  </body>
+</html>

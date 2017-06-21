@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'">
+
+  <title>JavaScript - Recursion vs Iteration</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class="content">
+      
+      <article id="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <a href='/'>< Home</a>
+
+  <div>
+    <h1>JavaScript - Recursion vs Iteration</h1> 
+    
+      2017-04-12
+    
+    <p>Story time: recently I had to solve a problem and wanted to do impress by doing it in the more elegant way. That being said, I spent some hours writing a recursive algorithm with the smallest possible complexity but in the end, I sent an iterative approach in <code>O(n^2)</code>. After submitting my solution, I got curious to know how JavaScript handles recursion vs iteration and then this post came to life.</p>
+<p>In general terms, recursion and iteration do the same things: they solve a task a piece at time. The difference is that while iteration repeats a task until it’s complete, recursion breaks it into small tasks until there’s a solution.</p>
+<p>There’s no consensus on which approach is more efficient. To illustrate, see two implementations of Fibonacci’s Sequence algorithm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function recursiveFibonacci(n) &#123;</div><div class="line">	if (n &lt;= 1) &#123;</div><div class="line">		return n;</div><div class="line">	&#125;</div><div class="line">	else &#123;</div><div class="line">		return recursiveFibonacci(n-1) + recursiveFibonacci(n-2);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function iterativeFibonacci(n) &#123;</div><div class="line">	int x = 0, y = 1, z = 1;</div><div class="line">	for (int i = 0; i &lt; n; i++) &#123;</div><div class="line">		x = y;</div><div class="line">		y = z;</div><div class="line">		z = x + y;</div><div class="line">	&#125;</div><div class="line">	return x;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The first approach (recursive one), although it’s small, has a complexity of <code>O(2^n)</code>, while the second approach (iterative one) has complexity of <code>O(n)</code>. That is, one is exponential and the other is linear, with significant impacts on their execution times.</p>
+<p>Right not you probably asking yourself “if there’s this huge difference between the two, why there’s any doubt on which one to choose?”. The point is that there are problems where a recursive approach is more ideal, for example when we are dealing with ADTs (abstract data types), such as:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function walkDOM(node, func) &#123;</div><div class="line">	func(node);</div><div class="line">	node = node.firstChild;</div><div class="line">	while(node) &#123;</div><div class="line">		walkDOM(node, func);</div><div class="line">		node = node.nextSibling;</div><div class="line"> 	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The above function easily allow us to walk through DOM nodes and apply a function to each one of them.</p>
+<p>Complexity and running times aside, a very common problem in recursive algorithms are infinite calls, for example a factorial algorithm where <code>N &lt; 0</code>. That is, when working with recursive approaches, you must always ensure the existence of a base-casis that will eventually happen.</p>
+<p>If there’s a possibility for your algorithm to have an infinite number of calls or even a big number of them, you’ll face a problem known as Stack Overflow, where the <code>stack</code>‘s size exceeds its own limits causing a crash in your software.</p>
+<p>One of the ways to avoid Stack Overflow in very “deep” calls is a resource called <code>tail call optimization</code>, this resource allows you to do calls without growing the stack size, EcmaScript adopted it on v6.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function factorial(n) &#123;</div><div class="line">	if (!n) return 1;</div><div class="line">	return n * factorial(n-1);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function factorialTCO(n, partialFactorial = 1) &#123;</div><div class="line">  if (!n)</div><div class="line">      return partialFactorial;</div><div class="line">  return factorialTCO(n - 1, n * partialFactorial);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The first approach does not fit <code>tail call optimization</code> given it returns the value of <code>n</code> and the result from the recursive call. Meanwhile, the second approach fits because only the function return value is returned.</p>
+<p>After those informations, the only possible conclusion is that there’s not silver bullet way of writing algorithms, it solely relies on the implementation and needs of your project, after all front-end performance is way more than algorithms and their complexities.</p>
+
+  </div>
+</article>
+    </div>
+  </body>
+</html>
