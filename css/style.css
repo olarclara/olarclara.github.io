@@ -14,7 +14,12 @@ a:visited {
 }
 .content {
   padding: 1.5em;
-  max-width: 65%;
+  width: 60%;
+}
+@media screen and (max-width: 64em) {
+  .content {
+    width: 90%;
+  }
 }
 #header a {
   text-decoration: none;
@@ -41,14 +46,34 @@ a:visited {
   border-right: 0;
   margin-right: 0;
 }
-#writing {
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+#about ul {
+  display: inline-block;
+}
+#about ul li {
+  display: inline-block;
+}
+#about ul li:after {
+  content: ", ";
+}
+#about ul li:last-child:after {
+  content: "";
+}
+#about ul li:nth-last-child(2):after {
+  content: " and ";
+}
+#posts {
   margin-top: 3em;
 }
-#writing h1 a {
+#posts h1 a {
   color: #e8f1f2;
   text-decoration: none;
 }
-#writing ul {
+#posts ul {
   -webkit-padding-start: 0;
   list-style: none;
 }
