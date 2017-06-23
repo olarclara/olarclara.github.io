@@ -77,3 +77,21 @@ ul {
   -webkit-padding-start: 0;
   list-style: none;
 }
+.highlight {
+  font-family: monospace;
+  background: #152d44;
+  padding-left: 1em;
+  overflow-x: auto;
+  margin: 1rem 0 1rem 0;
+}
+.highlight pre {
+  padding: 0;
+  border: none;
+  background: none;
+}
+.highlight table {
+  width: auto;
+}
+.highlight td.gutter {
+  display: none;
+}
