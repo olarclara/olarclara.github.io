@@ -2,11 +2,12 @@ body {
   color: #e8f1f2;
   background: #13293d;
   font-family: 'Roboto Mono', monospace;
-  min-height: 100%;
+  min-height: 100vh;
   margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 a,
 a:visited {
@@ -76,6 +77,33 @@ ul {
 #posts ul {
   -webkit-padding-start: 0;
   list-style: none;
+}
+#footer {
+  position: absolute;
+  bottom: 0;
+  padding: 0.725em;
+  font-size: 12px;
+  color: #9cc3c7;
+  width: 60%;
+}
+#footer ul {
+  list-style: none;
+}
+#footer ul li {
+  display: inline-block;
+}
+#footer p,
+#footer ul {
+  display: inline;
+}
+#footer a {
+  float: right;
+}
+@media screen and (max-width: 40em) {
+  #footer {
+    position: absolute;
+    width: 90%;
+  }
 }
 .highlight {
   font-family: monospace;
