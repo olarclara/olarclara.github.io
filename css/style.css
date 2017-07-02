@@ -1,125 +1,209 @@
 body {
-  color: #e8f1f2;
-  background: #13293d;
-  font-family: 'Roboto Mono', monospace;
-  min-height: 100vh;
   margin: 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
+  color: #d9e8e9;
+  background: #13293d;
+  font-family: 'Lucida Console', 'Monaco', monospace;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 a,
 a:visited {
   color: #e36397;
 }
 .content {
-  padding: 1.5em;
   width: 60%;
 }
-@media screen and (max-width: 64em) {
+.content section {
+  margin-bottom: 5%;
+}
+@media screen and (max-width: 40em) {
   .content {
     width: 90%;
   }
 }
-#header a {
+#header {
+  padding-top: 1.5em;
+}
+#header #title {
   text-decoration: none;
 }
-#header a h1 {
+#header #title h1 {
   color: #e8f1f2;
   margin: 0;
 }
-#header ul {
-  list-style: none;
-  -webkit-padding-start: 0;
-  -webkit-margin-before: 0.5em;
-}
-#header ul li {
+#header ul,
+#header li {
   display: inline-block;
-  vertical-align: middle;
+}
+#header #nav li {
   margin-right: 15px;
   border-right: 1px dotted #e36397;
 }
-#header ul li a {
+#header #nav li a {
   margin-right: 15px;
 }
-#header ul li:last-child {
+#header #nav li:last-child {
   border-right: 0;
   margin-right: 0;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+#header #social p,
+#header #social ul {
+  display: inline;
 }
-#about ul {
-  display: inline-block;
-}
-#about ul li {
-  display: inline-block;
-}
-#about ul li:after {
+#header #social ul li:after {
   content: ", ";
 }
-#about ul li:last-child:after {
-  content: "";
+#header #social ul li:last-child:after {
+  content: ".";
 }
-#about ul li:nth-last-child(2):after {
+#header #social ul li:nth-last-child(2):after {
   content: " and ";
 }
-#posts {
-  margin-top: 3em;
+#index {
+  padding-top: 1em;
 }
-#posts h1 a {
-  color: #e8f1f2;
-  text-decoration: none;
+#index #posts,
+#index #projects {
+  padding-bottom: 1em;
 }
-#posts ul {
-  -webkit-padding-start: 0;
-  list-style: none;
+#index #posts h3,
+#index #projects h3 {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+#index #posts a,
+#index #projects a,
+#index #posts small,
+#index #projects small {
+  display: inline-block;
+}
+#index #posts a h4,
+#index #projects a h4 {
+  margin-bottom: 0.15em;
+}
+#index #projects a,
+#index #projects p {
+  display: inline-block;
+}
+#index #projects p {
+  margin: 0;
+}
+#post h1 {
+  margin-bottom: 0;
+}
+#post table,
+#post th,
+#post td {
+  border: 1px solid #bdd5eb;
+  padding: 0.5em;
+}
+#post figure table,
+#post figure td,
+#post figure th {
+  padding: initial;
+  border: none;
 }
 #footer {
   position: absolute;
   bottom: 0;
   padding: 0.725em;
-  font-size: 12px;
-  color: #9cc3c7;
   width: 60%;
-}
-#footer ul {
-  list-style: none;
-}
-#footer ul li {
-  display: inline-block;
-}
-#footer p,
-#footer ul {
-  display: inline;
+  font-size: 12px;
 }
 #footer a {
   float: right;
 }
-@media screen and (max-width: 40em) {
-  #footer {
-    position: absolute;
-    width: 90%;
-  }
-}
+/**
+** Agate by Taufik Nurrohman <https://github.com/tovic>
+**/
 .highlight {
-  font-family: monospace;
-  background: #152d44;
+  color: #fff;
+  background: #12273a;
+  font-size: 14px;
   padding-left: 1em;
   overflow-x: auto;
-  margin: 1rem 0 1rem 0;
-}
-.highlight pre {
-  padding: 0;
-  border: none;
-  background: none;
 }
 .highlight table {
   width: auto;
 }
 .highlight td.gutter {
+  text-align: right;
+  padding-right: 20px;
   display: none;
+}
+.highlight .code .name,
+.highlight .code .strong {
+  font-weight: bold;
+}
+.highlight .code .code,
+.highlight .code .emphasis {
+  font-style: italic;
+}
+.highlight .code .tag {
+  color: #62c8f3;
+}
+.highlight .code .variable,
+.highlight .code .template-variable,
+.highlight .code .selector-id,
+.highlight .code .selector-class {
+  color: #ade5fc;
+}
+.highlight .code .string,
+.highlight .code .bullet {
+  color: #a2fca2;
+}
+.highlight .code .type,
+.highlight .code .title,
+.highlight .code .section,
+.highlight .code .attribute,
+.highlight .code .quote,
+.highlight .code .built_in,
+.highlight .code .builtin-name {
+  color: #ffa;
+}
+.highlight .code .number,
+.highlight .code .symbol,
+.highlight .code .bullet {
+  color: #d36363;
+}
+.highlight .code .keyword,
+.highlight .code .selector-tag,
+.highlight .code .literal {
+  color: #fcc28c;
+}
+.highlight .code .comment,
+.highlight .code .deletion,
+.highlight .code .code {
+  color: #888;
+}
+.highlight .code .regexp,
+.highlight .code .link {
+  color: #c6b4f0;
+}
+.highlight .code .meta {
+  color: #fc9b9b;
+}
+.highlight .code .deletion {
+  background-color: #fc9b9b;
+  color: #333;
+}
+.highlight .code .addition {
+  background-color: #a2fca2;
+  color: #333;
+}
+.highlight .code .highlight a {
+  color: inherit;
+}
+.highlight .code .highlight a:focus,
+.highlight .code .highlight a:hover {
+  color: inherit;
+  text-decoration: underline;
 }
